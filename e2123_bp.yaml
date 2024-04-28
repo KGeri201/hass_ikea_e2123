@@ -1,6 +1,6 @@
 # Blueprint metadata
 blueprint:
-  name: deCONZ - IKEA E2123 SYMFONISK Gen 2 Remote
+  name: IKEA E2123 SYMFONISK Gen 2 Remote
   description: |
     # Controller - IKEA E2123 SYMFONISK Gen 2 Remote
 
@@ -26,16 +26,26 @@ blueprint:
     #         - ZHA
     #         - Zigbee2MQTT
     controller_device:
-      name: (deCONZ) Controller Device
+      name: (ZHA) Controller Device
       description: The controller device to use for the automation.
-      default: ""
       selector:
         device:
-          integration: deconz
+          integration: zha
+          manufacturer: IKEA of Sweden
+          multiple: false
+        
+    # controller_entity:
+    #   name: (Zigbee2MQTT) Controller Entity
+    #   description: The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
+    #   default: ''
+    #   selector:
+    #     entity:
+    #       domain: sensor
 
     media_player:
       name: Media Player
       description: The media player to control with this automation
+      default: ""
       selector:
         entity:
           domain: media_player
@@ -158,7 +168,7 @@ max_exceeded: silent
 trigger:
   - platform: event
     event_type:
-      - deconz_event
+      - zha_event
     event_data:
       device_id: !input controller_device
 condition:
